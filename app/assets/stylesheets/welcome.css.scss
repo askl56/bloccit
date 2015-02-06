@@ -1,0 +1,16 @@
+.social-btn {
+  background-color: #E48681;
+  border-color: rgba(0,0,0,0.3);
+  text-shadow: 0 1px 0 rgba(0,0,0,0.5);
+  color: #FFF;
+}
+
+  .social-btn:hover {
+    background-color: #DA4F49;
+    border-color: rgba(0,0,0,0.5);
+  }
+  
+  .social-btn:active {
+    background-color: #B32C24;
+    border-color: rgba(0,0,0,0.9);
+  }
