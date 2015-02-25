@@ -26,7 +26,7 @@ class TopicsController < ApplicationController
   end
 
   def create
-  	 @topic = Topic.new(params.require(:topic).permit(:name, :description, :public))
+  	 @topic = current_user.topics.build(post_params)
      authorize @topic
      if @topic.save
        redirect_to @topic, notice: "Topic was saved successfully."
@@ -39,11 +39,17 @@ class TopicsController < ApplicationController
   def update
     @topic = Topic.find(params[:id])
     authorize @topic
-    if @topic.update_attributes(params.require(:topic).permit(:name, :description, :public))
+    if @topic = current_user.topics.build(post_params)
        redirect_to @topic
     else
        flash[:error] = "Error saving topic. Please try again."
        render :edit
      end
    end
+end
+
+private
+
+def topic_params
+  params.require(:topic).permit(:name)
 end
