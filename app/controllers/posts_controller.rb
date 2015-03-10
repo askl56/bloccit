@@ -43,7 +43,31 @@ class PostsController < ApplicationController
    end
 end
 
+def test_method
+  @post = Post.find(params[:id])
+  "hello"
+end
+
+def markdown_title
+  markdown_title = markdown_to_html(@title)
+  markdown_title
+end
+
+def markdown_body
+  md_body = markdown_to_html(@body)
+  md_body
+end
+
 private
+
+
+  
+  def markdown_to_html(markdown)
+    renderer = Redcarpet::Render::HTML.new
+    extensions = {fenced_code_blocks: true}
+    redcarpet = Redcarpet::Markdown.new(renderer, extensions)
+    (redcarpet.render markdown).html_safe
+  end
 
 def post_params
   params.require(:post).permit(:title, :body)
