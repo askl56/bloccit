@@ -13,10 +13,11 @@ class PostsController < ApplicationController
   def create
     @topic = Topic.find(params[:topic_id])
     @post = current_user.posts.build(post_params)
+    @post.topic = @topic
     authorize @post
      if @post.save
        flash[:notice] = "Post was saved."
-       redirect_to @post
+       redirect_to topic_post_path(@topic, @post)
      else
        flash[:error] = "There was an error saving the post. Please try again."
        render :new
@@ -48,26 +49,7 @@ def test_method
   "hello"
 end
 
-def markdown_title
-  markdown_title = markdown_to_html(@title)
-  markdown_title
-end
 
-def markdown_body
-  md_body = markdown_to_html(@body)
-  md_body
-end
-
-private
-
-
-  
-  def markdown_to_html(markdown)
-    renderer = Redcarpet::Render::HTML.new
-    extensions = {fenced_code_blocks: true}
-    redcarpet = Redcarpet::Markdown.new(renderer, extensions)
-    (redcarpet.render markdown).html_safe
-  end
 
 def post_params
   params.require(:post).permit(:title, :body)
