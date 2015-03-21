@@ -4,6 +4,14 @@ describe Vote do
 
   include TestFactories
 
+  before do
+     user = User.create
+     topic = Topic.create
+     @post = associated_post
+       3.times { @post.votes.create(value: 1) }
+       2.times { @post.votes.create(value: -1) }
+     end
+
   describe "validations" do
     describe "value validation" do
       it "only allow -1 or 1 as values" do
