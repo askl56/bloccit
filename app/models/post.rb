@@ -3,6 +3,7 @@ class Post < ActiveRecord::Base
   has_many :votes, dependent: :destroy
   belongs_to :user
   belongs_to :topic
+  after_create :create_vote
 
   default_scope { order ('rank DESC') }
 
@@ -44,5 +45,11 @@ class Post < ActiveRecord::Base
     new_rank = points + age_in_days
 
     update_attribute(:rank, new_rank)
+  end
+
+private
+
+  def create_vote
+    user.votes.create(value: 1, post: self) rescue binding.pry
   end
 end
