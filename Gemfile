@@ -12,6 +12,9 @@ gem 'fog'
 gem 'will_paginate', '~> 3.0.5'
 gem 'newrelic_rpm'
 
+gem 'puma', group: :production
+gem 'thin', group: :development
+
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 # Use sqlite3 as the database for Active Record
