@@ -21,3 +21,4 @@
 
 # Carrierwave image
 public/uploads
+.env
