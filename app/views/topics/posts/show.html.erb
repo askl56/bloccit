@@ -25,7 +25,7 @@
   </div>
   </div>
     <div>
-        <%= render partial: 'comments/form', locals: {topic: @topic, post: @post, comment: @comment} %>
+        <%= render partial: 'comments/form', locals: {topic: @topic, post: @post, comment: Comment.new} %>
     </div>
 	<h2><%= @comments.count %> Comments</h2>
   	<%= render partial: 'comments/comment', collection: @comments %>

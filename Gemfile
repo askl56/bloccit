@@ -1,6 +1,8 @@
 source 'https://rubygems.org'
 
 gem 'rails', '4.2.0'
+gem 'pry-rails'
+gem 'pry-nav'
 
 gem 'puma', group: :production
 gem 'thin', group: :development
@@ -21,7 +23,7 @@ group :test do
   gem 'capybara', '~> 2.3.0'
   gem 'database_cleaner'
   gem 'factory_girl_rails', '~> 4.0'
-  gem 'pry-rails'
+  
 end
 
 # Use SCSS for stylesheets
