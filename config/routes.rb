@@ -1,4 +1,8 @@
 Bloccit::Application.routes.draw do
+  get 'welcome/index'
+
+  get 'welcome/about'
+
   get 'comments/create'
 
   devise_for :users

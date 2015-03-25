@@ -12,6 +12,7 @@ class TopicsController < ApplicationController
 
   def show
     @topic = Topic.find(params[:id])
+    authorize @topic
     @posts = @topic.posts.includes(:user).includes(:comments).paginate(page: params[:page], per_page: 10)
   end
 
@@ -39,7 +40,7 @@ class TopicsController < ApplicationController
   def update
     @topic = Topic.find(params[:id])
     authorize @topic
-    if @topic = current_user.topics.build(post_params)
+    if @topic.update(topic_params)
       redirect_to @topic
     else
       flash[:error] = "Error saving topic. Please try again."
