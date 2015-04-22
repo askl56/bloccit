@@ -23,7 +23,7 @@ group :test do
   gem 'capybara', '~> 2.3.0'
   gem 'database_cleaner'
   gem 'factory_girl_rails', '~> 4.0'
-  
+
 end
 
 # Use SCSS for stylesheets
@@ -34,6 +34,7 @@ gem 'coffee-rails'
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder'
+gem 'regressor', git: 'https://github.com/ndea/regressor.git', branch: 'master'
 
 group :doc do
   gem 'sdoc', require: false
