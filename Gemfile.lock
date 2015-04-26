@@ -367,6 +367,7 @@ DEPENDENCIES
   rspec-rails
   sass-rails
   sdoc
+  shoulda-matchers
   sqlite3
   thin
   turbolinks
