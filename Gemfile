@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.0'
 gem 'pry-rails'
 gem 'pry-nav'
-
+gem 'rubocop'
 gem 'puma', group: :production
 gem 'thin', group: :development
 
