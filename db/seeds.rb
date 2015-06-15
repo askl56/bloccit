@@ -1,54 +1,51 @@
 require 'faker'
 
- # Create Users
- 30.times do
-   user = User.new(
-     name:     Faker::Name.name,
-     email:    Faker::Internet.email,
-     password: Faker::Lorem.characters(10)
-   )
-   user.skip_confirmation!
-   user.save!
- end
- users = User.all
+# Create Users
+30.times do
+  user = User.new(
+    name:     Faker::Name.name,
+    email:    Faker::Internet.email,
+    password: Faker::Lorem.characters(10)
+  )
+  user.skip_confirmation!
+  user.save!
+end
+users = User.all
 
 # Create topics
 
-  50.times do
-   Topic.create!(
-     name:         Faker::Lorem.sentence,
-     description:  Faker::Lorem.paragraph
-   )
- end
- topics = Topic.all
+50.times do
+  Topic.create!(
+    name:         Faker::Lorem.sentence,
+    description:  Faker::Lorem.paragraph
+  )
+end
+topics = Topic.all
 
+# Note: by calling `User.new` instead of `create`,
+# we create an instance of User which isn't immediately saved to the database.
 
- # Note: by calling `User.new` instead of `create`,
- # we create an instance of User which isn't immediately saved to the database.
+# The `skip_confirmation!` method sets the `confirmed_at` attribute
+# to avoid triggering an confirmation email when the User is saved.
 
- # The `skip_confirmation!` method sets the `confirmed_at` attribute
- # to avoid triggering an confirmation email when the User is saved.
+# The `save` method then saves this User to the database.
 
- # The `save` method then saves this User to the database.
+# Create Posts
+100.times do
+  post = Post.create!(
+    user:   users.sample,
+    topic:  topics.sample,
+    title:  Faker::Lorem.sentence,
+    body:   Faker::Lorem.paragraph
+  )
+  # set the created_at to a time within the past year
+  post.update_attributes!(created_at: rand(10.minutes..1.year).ago)
+  post.create_vote
+  post.update_rank
+end
+posts = Post.all
 
-
-
- # Create Posts
- 100.times do
-   post = Post.create!(
-     user:   users.sample,
-     topic:  topics.sample,
-     title:  Faker::Lorem.sentence,
-     body:   Faker::Lorem.paragraph
-   )
-   # set the created_at to a time within the past year
-   post.update_attributes!(created_at: rand(10.minutes .. 1.year).ago)
-   post.create_vote
-   post.update_rank
- end
- posts = Post.all
-
- # Create Comments
+# Create Comments
 post_count = Post.count
 User.all.each do |user|
   rand(30..50).times do
@@ -56,40 +53,40 @@ User.all.each do |user|
     c = user.comments.create(
       body: Faker::Lorem.paragraphs(rand(1..2)).join("\n"),
       post: p)
-    c.update_attribute(:created_at, Time.now - rand(600..31536000))
+    c.update_attribute(:created_at, Time.now - rand(600..31_536_000))
   end
 end
 
- # Create an admin user
- admin = User.new(
-   name:     'Admin User',
-   email:    'admin@example.com',
-   password: 'helloworld',
-   role:     'admin'
- )
- admin.skip_confirmation!
- admin.save!
+# Create an admin user
+admin = User.new(
+  name:     'Admin User',
+  email:    'admin@example.com',
+  password: 'helloworld',
+  role:     'admin'
+)
+admin.skip_confirmation!
+admin.save!
 
- # Create a moderator
- moderator = User.new(
-   name:     'Moderator User',
-   email:    'moderator@example.com',
-   password: 'helloworld',
-   role:     'moderator'
- )
- moderator.skip_confirmation!
- moderator.save!
+# Create a moderator
+moderator = User.new(
+  name:     'Moderator User',
+  email:    'moderator@example.com',
+  password: 'helloworld',
+  role:     'moderator'
+)
+moderator.skip_confirmation!
+moderator.save!
 
- # Create a member
- member = User.new(
-   name:     'Member User',
-   email:    'member@example.com',
-   password: 'helloworld'
- )
- member.skip_confirmation!
- member.save!
+# Create a member
+member = User.new(
+  name:     'Member User',
+  email:    'member@example.com',
+  password: 'helloworld'
+)
+member.skip_confirmation!
+member.save!
 
-puts "Seed finished"
+puts 'Seed finished'
 puts "#{User.count} users created"
 puts "#{Post.count} posts created"
 puts "#{Comment.count} comments created"
