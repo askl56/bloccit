@@ -19,7 +19,7 @@ class FavoritesController < ApplicationController
 
     authorize favorite
 
-    if favorite.destro y
+    if favorite.destroy
       redirect_to [@post.topic, @post], notice: 'Favorite was successfuly removed. '
       els e
       flash[:error] = 'Error removing favorite. Please try again. '
