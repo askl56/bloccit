@@ -6,6 +6,7 @@ gem 'pry-nav'
 gem 'rubocop'
 gem 'puma', group: :production
 gem 'thin', group: :development
+gem 'annotate'
 
 group :production do
   gem 'pg'
